@@ -1,0 +1,17 @@
+{% extends "_base.html" %}
+
+{% block header %}
+    {% include 'header.html' %}
+{% endblock %}
+
+{% block content %}
+    {% include 'checktime.html' %}
+{% endblock %}
+
+{% block footer %}
+   {% include 'footer.html' %}
+{% endblock %}
+
+{% block add_scripts %}
+    <script src="{{ STATIC_URL }}js/grid.js"></script>
+{% endblock %}

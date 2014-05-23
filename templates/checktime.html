@@ -1,0 +1,64 @@
+    <div class="well">
+        약속이 안되는 시간을 입력해주세요
+    </div>
+        {% comment %}<div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">월요일</div>
+                <div class="panel-body">음 이날은 아닌가봐요</div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-success">
+                <div class="panel-heading">화요일</div>
+                <div class="panel-body">2~3시가 최고네요!</div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-danger">
+                <div class="panel-heading">수요일</div>
+                <div class="panel-body">망 to the 망</div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">목요일</div>
+                <div class="panel-body">나쁘지 않네요</div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-warning">
+                <div class="panel-heading">금요일</div>
+                <div class="panel-body">불금이라 다들 바쁜가봄?</div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">토요일</div>
+                <div class="panel-body">2~3시가 최고네요!</div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-danger">
+                <div class="panel-heading">일요일</div>
+                <div class="panel-body">주말은 보장합시다</div>
+            </div>
+        </div>{% endcomment %}
+<div class="container">
+    <a href="#" id="reset_grid" class="btn btn-warning btn-lg">다시하기</a>
+    <a href="#" id="done_grid" class="btn btn-success btn-lg">완료</a>
+    <a href="#" id="result_grid" class="btn btn-danger btn-lg">결과보기</a>
+</div>
+<hr>
+<div id="result" class="container"></div>
+<div class="container">
+    <table class="selectable table table-bordered">
+        {% for i in dates %}
+        <tr>
+            <td class="date">{{ i }}요일</td>
+            {% for j in loop_times %}
+                <td class="time" tag="{{ i }}{{ j }}">{{ j }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
