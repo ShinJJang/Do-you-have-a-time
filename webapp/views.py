@@ -6,7 +6,7 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseServerError, HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect
 from django.template import Context, RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
 from doyouhavetime import settings
@@ -43,37 +43,59 @@ def login_required_ajax(function=None, redirect_field_name=None):
 @ensure_csrf_cookie
 def home(request):
     ctx = Context({
-        'result': False,
-        'dates': dates,
-        'loop_times': loop_times
+
     })
     return render(request, 'index.html', ctx)
+
+
+@login_required_ajax
+def make(request):
+    if 'planname' in request.GET:
+        if request.GET['planname'] != '':
+            new_plan = Plans.objects.create(plan_name=request.GET['planname'], owner=request.user)
+            return redirect('/edit/'+str(new_plan.id))
+    else:
+        return HttpResponse(status=404)
+
+
+@ensure_csrf_cookie
+def edit(request, planid):
+    ctx = Context({
+        'result': False,
+        'dates': dates,
+        'loop_times': loop_times,
+        'planid': planid,
+        'title': Plans.objects.get(pk=planid).plan_name,
+        'count': Plans.objects.get(pk=planid).times_set.count()
+    })
+    return render(request, 'edit.html', ctx)
 
 
 @login_required_ajax
 def done(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
+        planid = json_data['planid']
         user = request.user
         try:
             data = ""
             for i in json_data['times']:
                 data += json.dumps(i, ensure_ascii=False).encode('utf8').replace("\"", "") + " "
 
-            already = Times.objects.filter(user=user)
+            already = Times.objects.filter(user=user, parent_plan=planid)
             if already.count() != 0:
                 already.update(times=data)
             else:
-                Times(times=data, user=user, parent_plan=Plans.objects.first()).save()
+                Times(times=data, user=user, parent_plan=Plans.objects.get(pk=planid)).save()
         except KeyError:
             HttpResponseServerError("Malformed data!")
     return HttpResponse("Got json data")
 
 
 @login_required_ajax
-def result(request):
+def result(request, planid):
     times_result = []
-    times = Plans.objects.first().times_set.all()
+    times = Plans.objects.get(pk=planid).times_set.all()
     for time in times:
         for j in time.times.split():
             times_result.append(j)

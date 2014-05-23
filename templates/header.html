@@ -1,5 +1,11 @@
 <div class="page-header">
-    <a href="login/" class="btn btn-primary btn-lg pull-right">페이스북 로그인하기</a>
-    <a href="#" class="btn btn-primary btn-lg pull-right">기부하기</a>
-    <h1>시간 괜찮으세요?</h1>
+    <div class="nav navbar-nav navbar-right">
+        <a href="/login/" class="btn btn-primary btn-lg">페이스북 로그인하기</a>
+        <a href="/" class="btn btn-success btn-lg">사람 좀 모아 볼까?</a>
+        <a href="#" class="btn btn-danger btn-lg">기부하기</a>
+    </div>
+    <h2>{{ title }}</h2><h1>시간 괜찮으세요?</h1>
+    {% if count != none %}
+        {{ count }} 명이 참가하였습니다.
+    {% endif %}
 </div>

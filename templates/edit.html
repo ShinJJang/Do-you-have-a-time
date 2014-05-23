@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'make.html' %}
+    {% include 'checktime.html' %}
 {% endblock %}
 
 {% block footer %}
@@ -13,5 +13,8 @@
 {% endblock %}
 
 {% block add_scripts %}
+    <script>
+        planid = '{{ planid  }}';
+    </script>
     <script src="{{ STATIC_URL }}js/grid.js"></script>
 {% endblock %}

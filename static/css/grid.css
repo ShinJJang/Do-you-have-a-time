@@ -4,3 +4,5 @@
 .selectable .ui-result { background: #428bca; color: white; }
 .selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
 .selectable td { margin: 3px; padding: 0.4em; font-size: 1.4em; }
+
+.makeplan { max-width: 550px; text-align: center }

@@ -32,11 +32,12 @@ $("#done_grid").click(function() {
     });
     console.log(result);
     var data = JSON.stringify({
-        "times": result
+        "times": result,
+        "planid": planid
     });
     console.log(data);
     $.ajax({
-        url: "done/",
+        url: "/done/",
         type: "POST",
         contentType: "application/json",
         data: data,
@@ -70,7 +71,7 @@ function set_result(result) {
 
 $("#result_grid").click(function() {
     $.ajax({
-        url:"result/",
+        url:"/result/"+planid,
         type: "GET",
         dataType: 'json',
         statusCode:{
@@ -87,7 +88,7 @@ $("#result_grid").click(function() {
 });
 
 function grid_clear() {
-    $(".ui-selected").each(function(index) {
+    $(".ui-selected").each(function() {
         $(this).toggleClass("ui-selected click-selected");
     });
     $(".ui-result").each(function() {
@@ -97,6 +98,7 @@ function grid_clear() {
 
 $("#reset_grid").click(function() {
     grid_clear();
+    $("#result").html("");
     return false;
 });
 
