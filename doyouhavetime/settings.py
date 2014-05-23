@@ -102,7 +102,7 @@ TEMPLATE_DIRS = 'templates/'
 FACEBOOK_APP_ID = '1424094561196011'
 FACEBOOK_API_KEY = '1424094561196011'
 FACEBOOK_API_SECRET = '1320514d7c345b3c896cea8eab0eff73'
-FACEBOOK_REDIRECT_URI = 'http://localhost:8000/login/'
+FACEBOOK_REDIRECT_URI = 'http://doyouhavetime.herokuapp.com/login/'
 
 AUTHENTICATION_BACKENDS = (
     'webapp.backends.FacebookBackend',
