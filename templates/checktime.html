@@ -1,6 +1,6 @@
-    <div class="well">
+    {% comment %}<div class="well">
         약속이 안되는 시간을 입력해주세요
-    </div>
+    </div>{% endcomment %}
         {% comment %}<div class="col-sm-3">
             <div class="panel panel-default">
                 <div class="panel-heading">월요일</div>
@@ -49,7 +49,11 @@
     <a href="#" id="result_grid" class="btn btn-danger btn-lg">결과보기</a>
 </div>
 <hr>
-<div id="result" class="container"></div>
+<div id="result" class="container">
+    <div class="alert alert-info">
+        <strong>어떻게 씀?</strong> 약속이 안되는 시간을 그려주세요!!
+    </div>
+</div>
 <div class="container">
     <table class="selectable table table-bordered">
         {% for i in dates %}

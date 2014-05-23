@@ -98,10 +98,16 @@ function grid_clear() {
 
 $("#reset_grid").click(function() {
     grid_clear();
-    $("#result").html("");
+    $("#result").html("<div class='alert alert-info'> \
+    <strong>어떻게 씀?</strong> 약속이 안되는 시간을 그려주세요!! \
+    </div>");
     return false;
 });
 
 function facebook_login() {
     alert("페이스북 로그인을 해주세요!");
 }
+
+$("#donation").click(function() {
+   alert("써주시는게 기부입니다! 불편한 점이 있으시면 알려주세요!");
+});
