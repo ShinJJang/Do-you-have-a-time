@@ -60,10 +60,10 @@ function set_result(result) {
             var location = $(this).attr("tag");
             for (var i = 0; i < result.length; i++) {
                 if (location == result[i]) {
-                    $(this).toggleClass("ui-selected");
-                    break;
+                    return true;
                 }
             }
+            $(this).toggleClass("ui-result");
         });
     }
 }
@@ -88,7 +88,10 @@ $("#result_grid").click(function() {
 
 function grid_clear() {
     $(".ui-selected").each(function(index) {
-        $(this).toggleClass("ui-selected");
+        $(this).toggleClass("ui-selected click-selected");
+    });
+    $(".ui-result").each(function() {
+        $(this).toggleClass("ui-result");
     });
 }
 
