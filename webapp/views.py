@@ -54,12 +54,17 @@ def home(request):
 def done(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
+        user = request.user
         try:
             data = ""
             for i in json_data['times']:
                 data += json.dumps(i, ensure_ascii=False).encode('utf8').replace("\"", "") + " "
-            user = request.user
-            Times(times=data, user=user, parent_plan=Plans.objects.first()).save()
+
+            already = Times.objects.filter(user=user)
+            if already.count() != 0:
+                already.update(times=data)
+            else:
+                Times(times=data, user=user, parent_plan=Plans.objects.first()).save()
         except KeyError:
             HttpResponseServerError("Malformed data!")
     return HttpResponse("Got json data")
@@ -69,8 +74,8 @@ def done(request):
 def result(request):
     times_result = []
     times = Plans.objects.first().times_set.all()
-    for i in times:
-        for j in i.times.split():
+    for time in times:
+        for j in time.times.split():
             times_result.append(j)
     times_result = list(set(times_result))
     return HttpResponse(json.dumps(times_result))
