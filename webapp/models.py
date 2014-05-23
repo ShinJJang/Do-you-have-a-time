@@ -34,7 +34,7 @@ class FacebookSessionError(Exception):
 
 class FacebookSession(models.Model):
 
-    access_token = models.CharField(max_length=103, unique=True)
+    access_token = models.CharField(max_length=2000, unique=True)
     expires = models.IntegerField(null=True)
 
     user = models.ForeignKey(User, null=True)
