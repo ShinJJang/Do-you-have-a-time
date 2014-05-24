@@ -50,10 +50,14 @@ def home(request):
 
 @login_required_ajax
 def make(request):
-    if 'planname' in request.GET:
-        if request.GET['planname'] != '':
-            new_plan = Plans.objects.create(plan_name=request.GET['planname'], owner=request.user)
-            return redirect('/edit/'+str(new_plan.id))
+    if request.method == 'POST':
+        json_data = json.loads(request.body)
+        if json_data['planname'] != '':
+            new_plan = Plans.objects.create(plan_name=json_data['planname'], owner=request.user)
+            response_data = {'planid': '/edit/' + str(new_plan.id)}
+            return HttpResponse(json.dumps(response_data))
+        else:
+            return HttpResponse('모임명 입력해주세요', status=422)
     else:
         return HttpResponse(status=404)
 

@@ -111,3 +111,30 @@ function facebook_login() {
 $("#donation").click(function() {
    alert("써주시는게 기부입니다! 불편한 점이 있으시면 알려주세요!");
 });
+
+$("#makeplanform").submit(function() {
+    var planname = $("input[name='planname']").val();
+    if (planname.trim() == '') {
+        $("input[name='planname']").val("");
+        alert("모임명을 입력해주세요!");
+        return false;
+    }
+    var data = JSON.stringify({
+        'planname': planname
+    });
+    $.ajax({
+        url: "/make/",
+        type: "POST",
+        dataType: "json",
+        data: data,
+        statusCode: {
+            200: function(data) {
+                window.location.href = data.planid;
+            },
+            401: function() {
+                facebook_login();
+            }
+        }
+    });
+    return false;
+});
